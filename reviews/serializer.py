@@ -1,13 +1,16 @@
 import requests
 from Liber import settings
+from authentication.serializer import UserSerializer
 from .models import Review
 from rest_framework import permissions, serializers, exceptions
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Review
-        fields = ["rating", "review", "bookId"]
+        fields = ["id", "rating", "review", "bookId", "user"]
 
     def validate_bookId(self, bookId):
         site = "https://www.googleapis.com/books/v1/volumes/{}".format(bookId)

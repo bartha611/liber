@@ -4,6 +4,12 @@ from rest_framework import serializers, exceptions
 from .models import User
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username", "email"]
+
+
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=8, max_length=255, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)

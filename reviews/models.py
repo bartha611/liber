@@ -29,4 +29,4 @@ class Review(models.Model):
         ]
 
     def __str__(self):
-        return "%s %s".format(self.user, self.rating)
+        return "{} {}".format(self.user, self.bookId)
