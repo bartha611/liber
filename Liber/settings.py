@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_extensions",
     "authentication",
     "reviews",
+    "books",
+    "comments",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_sqlprint_middleware.SqlPrintMiddleware",
 ]
 
 ROOT_URLCONF = "Liber.urls"
@@ -79,6 +83,7 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("authentication.backend.JWTAuth",),
+    "DEFAULT_PERMISSION_CLASSES": ("reviews.permissions.ReviewPermission",),
 }
 
 WSGI_APPLICATION = "Liber.wsgi.application"

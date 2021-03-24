@@ -1,6 +1,7 @@
 from authentication.factory import UserFactory
 from authentication.models import User
 from reviews.factories import ReviewFactory
+from comments.factories import CommentFactory
 from django.core.management.base import BaseCommand, CommandParser
 
 
@@ -16,6 +17,10 @@ class Command(BaseCommand):
             "--reviews", default=500, help="The number of reviews you want"
         )
 
+        parser.add_argument(
+            "--comments", default=3000, help="The amount of comments you want"
+        )
+
     def handle(self, *args, **options):
         for _ in range(options["users"]):
             UserFactory.create()
@@ -28,3 +33,6 @@ class Command(BaseCommand):
 
         for _ in range(options["reviews"]):
             ReviewFactory.create()
+
+        for _ in range(options["comments"]):
+            CommentFactory.create()

@@ -10,8 +10,6 @@ class JWTAuth(authentication.BaseAuthentication):
     def authenticate(self, request):
         header = authentication.get_authorization_header(request).split()
 
-        print(header)
-
         if not header:
             return None
         elif len(header) == 1 or len(header) > 2:
