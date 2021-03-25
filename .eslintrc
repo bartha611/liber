@@ -1,0 +1,27 @@
+{
+    "parser": "babel-eslint",
+    "extends": ["airbnb", "prettier"],
+    "plugins": ["prettier", "react"],
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true
+    },
+    "rules": {
+      "linebreak-style": 0,
+      "func-names": 0,
+      "no-param-reassign": ["error", { "props": false }],
+      "no-console": "off",
+      "react/jsx-one-expression-per-line": 0,
+      "jsx-a11y/anchor-is-valid": 0,
+      "jsx-a11y/label-has-for": 0,
+      "jsx-a11y/label-has-associated-control": 0,
+      "no-plusplus": 0,
+      "jsx-a11y/no-static-element-interactions": 0,
+      "jsx-a11y/click-events-have-key-events": 0,
+      "react/jsx-indent": 0,
+      "no-useless-return": 0,
+      "import/prefer-default-export": 0,
+      "react/require-default-props": 0
+    }
+  }

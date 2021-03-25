@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_extensions",
     "authentication",
+    "frontend",
     "reviews",
     "books",
     "comments",
@@ -60,7 +61,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_sqlprint_middleware.SqlPrintMiddleware",
 ]
 
 ROOT_URLCONF = "Liber.urls"

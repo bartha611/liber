@@ -22,4 +22,5 @@ urlpatterns = [
     path("", include("reviews.urls")),
     path("", include("books.urls")),
     path("", include("comments.urls")),
+    path("", include("frontend.urls")),
 ]
