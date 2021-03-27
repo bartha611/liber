@@ -1,57 +1,53 @@
-import requests
-from Liber import settings
 from rest_framework import generics, exceptions
-from rest_framework.generics import get_object_or_404
 from .permissions import ReviewPermission
 from .serializer import ReviewDetailSerializer, ReviewSerializer
 from .models import Review
+from books.models import Book
+from books.api import getBook
+from utils.mixins import MultipleFieldsLookupMixin
 
 
 # Create your views here.
 class ReviewView(generics.ListCreateAPIView):
     permission_classes = (ReviewPermission,)
     serializer_class = ReviewSerializer
-    queryset = Review.objects.prefetch_related("comments").select_related("user")
+    queryset = (
+        Review.objects.prefetch_related("comments", "comments__user")
+        .select_related("user")
+        .select_related("book")
+    )
 
     def get_queryset(self):
-        book = self.kwargs["bookId"]
+        book = self.kwargs["book"]
         return (
-            Review.objects.filter(bookId=book)
+            Review.objects.filter(book=book)
             .prefetch_related("comments", "comments__user")
             .select_related("user")
+            .select_related("book")
         )
 
     def create(self, request, *args, **kwargs):
-        bookId = self.kwargs["bookId"]
-        site = "https://www.googleapis.com/books/v1/volumes/{}".format(bookId)
-        key = settings.GOOGLE_API_KEY
-        url = "{}?key={}".format(site, key)
-
-        response = requests.get(url)
-
-        if response.status_code != 200:
-            raise exceptions.ValidationError("Could not connect to api")
-        results = response.json()
-        if hasattr(results, "error"):
-            raise exceptions.ValidationError("Volume does not exist in api")
+        bookId = self.kwargs["book"]
+        try:
+            # check whether book exists on local database before calling api
+            Book.objects.get(id=bookId)
+        except Book.DoesNotExist:
+            book = getBook(bookId)
+            # if no book, raise exception
+            if book is None:
+                raise exceptions.ValidationError(
+                    "Either could not connect to api or volume does not exist in api"
+                )
+            Book.objects.create(**book)
         return super(ReviewView, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user, bookId=self.kwargs["bookId"])
+        book = Book.objects.get(id=self.kwargs["book"])
+        return serializer.save(user=self.request.user, book=book)
 
 
-class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+class ReviewDetail(MultipleFieldsLookupMixin, generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ReviewDetailSerializer
     permission_classes = (ReviewPermission,)
-    lookup_fields = ("pk", "bookId")
-    queryset = Review.objects.all().select_related("user")
-
-    def get_object(self):
-        queryset = self.get_queryset()
-        queryset = self.filter_queryset(queryset)
-        filters = {}
-        for field in self.lookup_fields:
-            filters[field] = self.kwargs[field]
-        obj = get_object_or_404(queryset, **filters)
-        self.check_object_permissions(self.request, obj)
-        return obj
+    lookup_fields = ("pk", "book")
+    queryset = Review.objects.all().select_related("user").select_related("book")

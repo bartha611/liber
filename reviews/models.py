@@ -1,3 +1,4 @@
+from books.models import Book
 from django.db.models import constraints
 from authentication.models import User
 from django.db import models
@@ -12,8 +13,8 @@ class Review(models.Model):
     rating = models.IntegerField(
         _("rating"), validators=[MaxValueValidator(5), MinValueValidator(1)]
     )
-    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
-    bookId = models.CharField(_("Book Id"), max_length=255, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     created_at = models.DateTimeField(
         _("created at"), auto_now=False, auto_now_add=True
     )
@@ -23,9 +24,7 @@ class Review(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                fields=["user", "bookId"], name="user_bookId_unique"
-            )
+            models.UniqueConstraint(fields=["user", "book"], name="user_bookId_unique")
         ]
 
     def __str__(self):

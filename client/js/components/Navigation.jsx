@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   Nav,
@@ -11,7 +11,12 @@ import {
 } from "reactstrap";
 
 const Navigation = () => {
+  const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -24,7 +29,11 @@ const Navigation = () => {
           <Nav dar className="ml-auto" navbar>
             <NavItem>
               <InputGroup>
-                <Input placeholder="Search Books" />
+                <Input
+                  value={search}
+                  placeholder="Search Books"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </InputGroup>
             </NavItem>
           </Nav>
