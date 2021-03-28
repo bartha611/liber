@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Navbar,
   Nav,
@@ -8,15 +9,30 @@ import {
   Collapse,
   Input,
   InputGroup,
+  ListGroupItem,
+  ListGroup,
 } from "reactstrap";
+import { useDebounce } from "../utils";
+import SearchBook from "./SearchBook";
 
 const Navigation = () => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [books, setBooks] = useState([]);
+
+  const query = useDebounce(search, 500);
 
   useEffect(() => {
-    console.log(search);
-  }, [search]);
+    const searchBooks = async (q) => {
+      const response = await axios.get(`/api/books?search=${q}`);
+      setBooks(response.data);
+    };
+    if (query !== "") {
+      searchBooks(query);
+    } else {
+      setBooks([]);
+    }
+  }, [query]);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -26,8 +42,8 @@ const Navigation = () => {
         <NavbarBrand href="/">Liber</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav dar className="ml-auto" navbar>
-            <NavItem>
+          <Nav className="ml-auto" navbar>
+            <NavItem className="searchBook">
               <InputGroup>
                 <Input
                   value={search}
@@ -35,6 +51,13 @@ const Navigation = () => {
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </InputGroup>
+              <ListGroup className="searchBook__list">
+                {books?.map((book) => (
+                  <ListGroupItem>
+                    <SearchBook book={book} />
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
             </NavItem>
           </Nav>
         </Collapse>

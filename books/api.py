@@ -31,7 +31,7 @@ def getBook(bookId):
         .get("thumbnail", None),
         "title": results.get("volumeInfo", {}).get("title", None),
         "description": results.get("volumeInfo", {}).get("description", None),
-        "authors": ",".join(results.get("volumeInfo", {}).get("authors", [])),
+        "authors": ", ".join(results.get("volumeInfo", {}).get("authors", [])),
     }
 
     return book
@@ -66,7 +66,7 @@ def searchBooks(search):
         book = {
             "id": item.get("id", None),
             "title": item.get("volumeInfo", {}).get("title", None),
-            "authors": item.get("volumeInfo", {}).get("authors", None),
+            "authors": ", ".join(item.get("volumeInfo", {}).get("authors", [])),
             "description": item.get("volumeInfo", {}).get("description", None),
             "publishedDate": item.get("volumeInfo", {}).get("publishedDate", None),
             "thumbnail": item.get("volumeInfo", {})
