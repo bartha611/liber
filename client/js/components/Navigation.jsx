@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Navbar,
   Nav,
@@ -12,26 +11,21 @@ import {
   ListGroupItem,
   ListGroup,
 } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBooks } from "../state/ducks/books";
 import { useDebounce } from "../utils";
 import SearchBook from "./SearchBook";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+  const { books } = useSelector((state) => state.books);
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [books, setBooks] = useState([]);
 
   const query = useDebounce(search, 500);
 
   useEffect(() => {
-    const searchBooks = async (q) => {
-      const response = await axios.get(`/api/books?search=${q}`);
-      setBooks(response.data);
-    };
-    if (query !== "") {
-      searchBooks(query);
-    } else {
-      setBooks([]);
-    }
+    dispatch(fetchBooks(query));
   }, [query]);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -53,7 +47,7 @@ const Navigation = () => {
               </InputGroup>
               <ListGroup className="searchBook__list">
                 {books?.map((book) => (
-                  <ListGroupItem>
+                  <ListGroupItem key={book.id}>
                     <SearchBook book={book} />
                   </ListGroupItem>
                 ))}

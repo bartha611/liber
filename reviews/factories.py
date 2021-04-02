@@ -12,6 +12,7 @@ class ReviewFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ("user", "book")
 
     review = factory.Faker("text")
+    headline = factory.Faker("word")
     user = factory.fuzzy.FuzzyChoice(User.objects.all())
     book = factory.fuzzy.FuzzyChoice(Book.objects.all())
     rating = factory.fuzzy.FuzzyInteger(1, 5)

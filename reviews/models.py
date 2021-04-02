@@ -13,8 +13,11 @@ class Review(models.Model):
     rating = models.IntegerField(
         _("rating"), validators=[MaxValueValidator(5), MinValueValidator(1)]
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    headline = models.CharField(_("Headline"), max_length=140)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
+    book = models.ForeignKey(
+        Book, related_name="reviews", on_delete=models.CASCADE, db_index=True
+    )
     created_at = models.DateTimeField(
         _("created at"), auto_now=False, auto_now_add=True
     )
@@ -28,4 +31,4 @@ class Review(models.Model):
         ]
 
     def __str__(self):
-        return "{} {}".format(self.user, self.bookId)
+        return "{} {}".format(self.user, self.book)

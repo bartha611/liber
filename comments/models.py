@@ -9,9 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 class Comment(models.Model):
     comment = models.TextField(_("comment"), null=False)
     review = models.ForeignKey(
-        Review, related_name="comments", on_delete=models.CASCADE
+        Review, related_name="comments", on_delete=models.CASCADE, db_index=True
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
     created_at = models.DateTimeField(
         _("created at"), auto_now=False, auto_now_add=True
     )

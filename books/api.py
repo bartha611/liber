@@ -76,4 +76,4 @@ def searchBooks(search):
 
         books.append(book)
 
-    return books
+    return {"books": books}

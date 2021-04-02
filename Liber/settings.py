@@ -85,6 +85,8 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("authentication.backend.JWTAuth",),
     "DEFAULT_PERMISSION_CLASSES": ("reviews.permissions.ReviewPermission",),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 50,
 }
 
 WSGI_APPLICATION = "Liber.wsgi.application"

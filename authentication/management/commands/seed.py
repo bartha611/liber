@@ -16,11 +16,11 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            "--reviews", default=500, help="The number of reviews you want"
+            "--reviews", default=1000, help="The number of reviews you want"
         )
 
         parser.add_argument(
-            "--comments", default=3000, help="The amount of comments you want"
+            "--comments", default=10000, help="The amount of comments you want"
         )
 
     def handle(self, *args, **options):

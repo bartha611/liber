@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Component for displaying search results on books
@@ -15,11 +17,18 @@ import PropTypes from "prop-types";
 
 const SearchBook = ({ book }) => (
   <div className="searchBook__item">
-    <img
-      className="searchBook__thumbnail"
-      src={book.thumbnail}
-      alt="Book thumbnail"
-    />
+    {book.thumbnail && (
+      <img
+        className="searchBook__thumbnail"
+        src={book.thumbnail}
+        alt="Book thumbnail"
+      />
+    )}
+    {!book.thumbnail && (
+      <div className="searchBook__thumbnail searchBook__thumbnail--empty">
+        <FontAwesomeIcon icon={faBookOpen} color="white" />
+      </div>
+    )}
     <div className="searchBook__info">
       <div className="searchBook__title">{book.title}</div>
       <div className="searchBook__authors">By {book.authors}</div>
@@ -30,8 +39,8 @@ const SearchBook = ({ book }) => (
 SearchBook.propTypes = {
   book: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    authors: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string,
+    authors: PropTypes.string,
   }).isRequired,
 };
 
