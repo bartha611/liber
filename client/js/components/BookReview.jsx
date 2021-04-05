@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Container, Col } from "reactstrap";
+import ReviewRating from "./ReviewRating";
+
 /**
  * Component that displays reviews for Front Page
  *
@@ -15,21 +18,38 @@ import PropTypes from "prop-types";
  */
 
 const BookReviews = ({ reviews }) => {
-  console.log(reviews);
+  const formatReview = (text) => {
+    const ellipsis = text.length > 200 ? "..." : "";
+    return `${text.slice(0, 200)}${ellipsis}`;
+  };
+
   return (
-    <div className="BookReviews">
-      {reviews &&
-        reviews.map((review) => (
-          <div className="BookReviews__item">
-            <img
-              className="BookReviews__thumbnail"
-              src={review.book.thumbnail}
-              alt="Book thumbnail"
-            />
-            <h3 className="BookReviews__title">{review.book.title}</h3>
-          </div>
+    <Container>
+      <div className="BookReviews">
+        {reviews?.map((review) => (
+          <Col xs="12" md="6">
+            <div className="BookReviews__item" key={review.id}>
+              <img
+                className="BookReviews__thumbnail"
+                src={review.book.thumbnail}
+                alt="Book thumbnail"
+              />
+              <div className="BookReviews__info">
+                <h3 className="BookReviews__title">{review.book.title}</h3>
+                <h6 className="BookReviews__authors">{review.book.authors}</h6>
+                <ReviewRating
+                  className="BookReviews__rating"
+                  rating={review.rating}
+                />
+                <div className="BookReviews__review">
+                  {formatReview(review.review)}
+                </div>
+              </div>
+            </div>
+          </Col>
         ))}
-    </div>
+      </div>
+    </Container>
   );
 };
 

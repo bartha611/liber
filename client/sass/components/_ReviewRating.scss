@@ -1,0 +1,33 @@
+.ReviewRating {
+  position: relative;
+  width: fit-content;
+
+  &__stars {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    &--active {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      color: red;
+      white-space: nowrap;
+    }
+
+    &--inactive {
+      color: rgba(150, 150, 150, 0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  &__star {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
+}

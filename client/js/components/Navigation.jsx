@@ -33,7 +33,9 @@ const Navigation = () => {
   return (
     <div>
       <Navbar dark color="dark" expand="sm">
-        <NavbarBrand href="/">Liber</NavbarBrand>
+        <NavbarBrand style={{ fontSize: "2rem" }} href="/">
+          Liber
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
@@ -41,13 +43,14 @@ const Navigation = () => {
               <InputGroup>
                 <Input
                   value={search}
+                  style={{ fontSize: "1.6rem" }}
                   placeholder="Search Books"
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </InputGroup>
               <ListGroup className="searchBook__list">
                 {books?.map((book) => (
-                  <ListGroupItem key={book.id}>
+                  <ListGroupItem key={book.id} style={{ fontSize: "1.6rem" }}>
                     <SearchBook book={book} />
                   </ListGroupItem>
                 ))}

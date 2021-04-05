@@ -1,2 +1,12 @@
-@import "components/_SearchBook.scss";
-@import "components/_BookReviews.scss";
+/* import variables */
+@import "variables";
+
+/* import layout */
+@import "layout";
+
+/* import components */
+@import "components/SearchBook";
+@import "components/BookReviews";
+@import "components/ReviewRating";
+@import "components/Headline";
+@import "components/HomeMenu";

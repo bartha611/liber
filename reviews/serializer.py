@@ -11,7 +11,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     total_comments = serializers.IntegerField(read_only=True)
     comments = serializers.SerializerMethodField()
-    book = BookSerializer(required=False)
+    book = BookSerializer(required=False, read_only=True)
 
     class Meta:
         model = Review
@@ -34,6 +34,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class ReviewDetailSerializer(serializers.ModelSerializer):
     book = BookSerializer(read_only=True)
     user = UserSerializer(read_only=True)
+    total_comments = serializers.IntegerField(required=False)
 
     class Meta:
         model = Review
@@ -44,4 +45,5 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             "review",
             "headline",
             "book",
+            "total_comments",
         ]

@@ -29,12 +29,18 @@ module.exports = {
             loader: "style-loader",
           },
           {
-            loader: "css-loader",
+            loader: "css-loader?url=false",
           },
           {
             loader: "sass-loader",
           },
         ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: {
+          loader: "url-loader",
+        },
       },
     ],
   },

@@ -1,3 +1,5 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 """Liber URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -23,4 +25,4 @@ urlpatterns = [
     path("", include("books.urls")),
     path("", include("comments.urls")),
     path("", include("frontend.urls")),
-]
+] + staticfiles_urlpatterns()

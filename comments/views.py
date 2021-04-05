@@ -1,3 +1,4 @@
+from comments.pagination import CommentPagination
 from django.shortcuts import render
 from django.http import Http404
 from rest_framework import generics
@@ -10,12 +11,16 @@ from utils.mixins import MultipleFieldsLookupMixin
 
 
 class CommentView(generics.ListCreateAPIView):
-    queryset = Comment.objects.all().select_related("user")
     permission_classes = (CommentPermission,)
     serializer_class = CommentSerializer
+    pagination_class = CommentPagination
 
     def get_queryset(self):
-        reviewId = self.kwargs["review"]
+        reviewId = self.kwargs.get("review", None)
+        try:
+            Review.objects.get(pk=reviewId)
+        except Review.DoesNotExist:
+            raise Http404()
         return Comment.objects.filter(review=reviewId).select_related("user")
 
     def perform_create(self, serializer):

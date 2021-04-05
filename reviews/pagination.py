@@ -15,19 +15,20 @@ class CustomPagination(PageNumberPagination):
             ]
         )
         bookId = self.request.parser_context.get("kwargs", None).get("book", None)
-        try:
-            book = Book.objects.annotate(avgRating=Avg("reviews__rating")).get(
-                id=bookId
-            )
-            obj["book"] = {
-                "id": book.id,
-                "title": book.title,
-                "thumbnail": book.thumbnail,
-                "avgRating": round(book.avgRating, 2),
-                "authors": book.authors,
-                "description": book.description,
-            }
-        except Exception:
-            pass
+        if bookId:
+            try:
+                book = Book.objects.annotate(avgRating=Avg("reviews__rating")).get(
+                    id=bookId
+                )
+                obj["book"] = {
+                    "id": book.id,
+                    "title": book.title,
+                    "thumbnail": book.thumbnail,
+                    "avgRating": round(book.avgRating, 2),
+                    "authors": book.authors,
+                    "description": book.description,
+                }
+            except Exception:
+                pass
         obj["reviews"] = data
         return Response(obj)
