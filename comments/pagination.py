@@ -1,5 +1,9 @@
+from django.db.models.aggregates import Avg
+from books.models import Book
 import json
+from django.db.models.query import Prefetch
 from rest_framework.exceptions import NotFound
+from django.db.models import Count
 from rest_framework.response import Response
 from reviews.models import Review
 from typing import OrderedDict
@@ -19,7 +23,17 @@ class CommentPagination(PageNumberPagination):
             ]
         )
         reviewId = self.request.parser_context.get("kwargs", None).get("review", None)
-        review = Review.objects.select_related("user", "book").get(pk=reviewId)
+        review = (
+            Review.objects.select_related("user")
+            .prefetch_related(
+                Prefetch(
+                    "book",
+                    queryset=Book.objects.annotate(avgRating=Avg("reviews__rating")),
+                )
+            )
+            .annotate(totalComments=Count("comments"))
+            .get(pk=reviewId)
+        )
         reviewObject = ReviewDetailSerializer(review)
         obj["review"] = reviewObject.data
 

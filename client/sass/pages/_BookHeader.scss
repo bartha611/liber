@@ -1,0 +1,82 @@
+.BookHeader {
+  position: relative;
+  height: 50rem;
+  color: $header-color;
+
+  &__background {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    filter: blur(0.5rem);
+    -webkit-filter: blur(0.5rem);
+  }
+
+  &__wrapper {
+    background: rgba(0, 0, 0, 0.3);
+    height: 100%;
+  }
+
+  &__header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__content {
+    display: flex;
+    margin-top: 4rem;
+    flex-direction: row;
+  }
+
+  &__info {
+    margin-left: 2rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    margin-top: 0.5rem;
+    font-size: 3.2rem;
+  }
+
+  &__authors {
+    margin-top: 3rem;
+    font-size: 1.8rem;
+  }
+
+  &__thumbnail {
+    width: 15rem;
+    height: 25rem;
+    border-radius: 1rem;
+  }
+
+  &__rating {
+    width: fit-content;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .BookHeader {
+    &__thumbnail {
+      margin: 0 auto;
+    }
+
+    &__rating {
+      margin: 0 auto;
+    }
+
+    &__title {
+      text-align: center;
+    }
+
+    &__authors {
+      text-align: center;
+    }
+
+    &__content {
+      flex-direction: column;
+    }
+  }
+}

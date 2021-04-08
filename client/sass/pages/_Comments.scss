@@ -1,0 +1,16 @@
+.comments {
+  &__comment {
+    margin: 1rem 0;
+  }
+}
+
+.comment {
+  margin: 1.5rem 0;
+
+  &__header {
+    padding: 0.5rem;
+    background: beige;
+    display: flex;
+    justify-content: space-between;
+  }
+}

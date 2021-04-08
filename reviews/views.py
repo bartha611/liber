@@ -1,4 +1,3 @@
-from django.views.generic.base import ContextMixin
 from reviews.pagination import CustomPagination
 from django.db.models import Count, Subquery, Avg, Prefetch
 from django.db.models.expressions import OuterRef

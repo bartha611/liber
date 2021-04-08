@@ -1,8 +1,7 @@
 from comments.pagination import CommentPagination
-from django.shortcuts import render
+from authentication.backend import JWTAuth
 from django.http import Http404
 from rest_framework import generics
-from rest_framework.generics import get_object_or_404
 from reviews.models import Review
 from .models import Comment
 from .serializers import CommentSerializer
@@ -14,6 +13,11 @@ class CommentView(generics.ListCreateAPIView):
     permission_classes = (CommentPermission,)
     serializer_class = CommentSerializer
     pagination_class = CommentPagination
+
+    def get_authenticators(self):
+        if self.request.method != "GET":
+            return [JWTAuth()]
+        return ()
 
     def get_queryset(self):
         reviewId = self.kwargs.get("review", None)

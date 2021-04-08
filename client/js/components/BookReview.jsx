@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Col } from "reactstrap";
 import ReviewRating from "./ReviewRating";
+import { useHistory } from "react-router";
 
 /**
  * Component that displays reviews for Front Page
@@ -18,6 +19,7 @@ import ReviewRating from "./ReviewRating";
  */
 
 const BookReviews = ({ reviews }) => {
+  const history = useHistory();
   const formatReview = (text) => {
     const ellipsis = text.length > 200 ? "..." : "";
     return `${text.slice(0, 200)}${ellipsis}`;
@@ -28,7 +30,11 @@ const BookReviews = ({ reviews }) => {
       <div className="BookReviews">
         {reviews?.map((review) => (
           <Col xs="12" md="6">
-            <div className="BookReviews__item" key={review.id}>
+            <div
+              className="BookReviews__item"
+              key={review.id}
+              onClick={() => history.push(`reviews/${review.id}`)}
+            >
               <img
                 className="BookReviews__thumbnail"
                 src={review.book.thumbnail}

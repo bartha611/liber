@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -38,6 +39,14 @@ const Navigation = () => {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem style={{ padding: "0 0.5rem" }}>
+              <NavLink to="/login">Login</NavLink>
+            </NavItem>
+            <NavItem style={{ padding: "0 0.5rem" }}>
+              <NavLink to="/">Sign-up</NavLink>
+            </NavItem>
+          </Nav>
           <Nav className="ml-auto" navbar>
             <NavItem className="searchBook">
               <InputGroup>

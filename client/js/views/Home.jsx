@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchReviews } from "../state/ducks/reviews";
-import Navigation from "./Navigation";
-import BookReviews from "./BookReview";
-import Headline from "./Headline";
-import HomeMenu from "./HomeMenu";
+import Navigation from "../components/Navigation";
+import BookReviews from "../components/BookReview";
+import Headline from "../components/Headline";
+import HomeMenu from "../components/HomeMenu";
 
 const Home = () => {
   const dispatch = useDispatch();

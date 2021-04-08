@@ -1,0 +1,47 @@
+.login {
+  padding: 2rem;
+  width: 45rem;
+  box-shadow: 0 12px 17px -3px rgba(0, 0, 0, 0.1),
+    0 6px 8px -2px rgba(0, 0, 0, 0.05);
+  margin-top: 8rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  &__title {
+    font-size: 3.2rem;
+    font-weight: bolder;
+    text-align: center;
+  }
+  &__form {
+    margin-top: 5rem;
+  }
+  &__label {
+    font-weight: bold;
+  }
+
+  &__input {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  &__submit {
+    margin-top: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &__signup {
+    margin-top: 1rem;
+    text-align: center;
+
+    &-text {
+      margin-left: 0.5rem;
+      color: blue;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .login {
+    width: 90%;
+  }
+}

@@ -5,18 +5,22 @@ import { render } from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../sass/app.scss";
 import { store } from "./state/store";
-import ReviewPage from "./components/ReviewPage";
-import Home from "./components/Home";
+import ReviewPage from "./views/ReviewPage";
+import Home from "./views/Home";
+import Login from "./views/Login";
 
 const App = () => (
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
         </Route>
-        <Route path="reviews/:id">
+        <Route path="/reviews/:id">
           <ReviewPage />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
     </Router>

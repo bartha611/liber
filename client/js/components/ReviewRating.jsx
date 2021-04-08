@@ -36,19 +36,19 @@ const ReviewRating = ({ rating }) => (
     </ul>
     <ul className="ReviewRating__stars ReviewRating__stars--inactive">
       <li className="ReviewRating__star">
-        <FontAwesomeIcon icon={faStarInactive} size="lg" />
+        <FontAwesomeIcon icon={faStarInactive} color="black" size="lg" />
       </li>
       <li className="ReviewRating__star">
-        <FontAwesomeIcon icon={faStarInactive} size="lg" />
+        <FontAwesomeIcon icon={faStarInactive} color="black" size="lg" />
       </li>
       <li className="ReviewRating__star">
-        <FontAwesomeIcon icon={faStarInactive} size="lg" />
+        <FontAwesomeIcon icon={faStarInactive} color="black" size="lg" />
       </li>
       <li className="ReviewRating__star">
-        <FontAwesomeIcon icon={faStarInactive} size="lg" />
+        <FontAwesomeIcon icon={faStarInactive} color="black" size="lg" />
       </li>
       <li className="ReviewRating__star">
-        <FontAwesomeIcon icon={faStarInactive} size="lg" />
+        <FontAwesomeIcon icon={faStarInactive} color="black" size="lg" />
       </li>
     </ul>
   </div>
