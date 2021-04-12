@@ -1,0 +1,46 @@
+.form {
+  padding: 2rem;
+  width: 45rem;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 8rem;
+  margin-right: auto;
+  margin-left: auto;
+
+  &__title {
+    font-size: 3.2rem;
+    font-weight: bolder;
+    text-align: center;
+  }
+  &__form {
+    margin-top: 5rem;
+  }
+  &__label {
+    font-weight: bold;
+  }
+
+  &__input {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  &__submit {
+    margin-top: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &__signup {
+    margin-top: 1rem;
+    text-align: center;
+
+    &-text {
+      margin-left: 0.5rem;
+      color: blue;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form {
+    width: 90%;
+  }
+}

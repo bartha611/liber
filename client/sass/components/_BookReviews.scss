@@ -2,12 +2,18 @@
   display: flex;
   flex-wrap: wrap;
 
+  &__content {
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+  }
+
   &__item {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
     margin: 1rem 0.5rem;
+    cursor: pointer;
   }
 
   &__info {

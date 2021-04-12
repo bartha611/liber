@@ -1,0 +1,22 @@
+.textarea {
+  margin: 1.5rem 0;
+  padding: $review-padding;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__type {
+    font-weight: bold;
+  }
+
+  &__textarea {
+    width: 100%;
+  }
+
+  &__button {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.6rem;
+  }
+}

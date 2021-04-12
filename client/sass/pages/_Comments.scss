@@ -1,4 +1,10 @@
 .comments {
+  padding: $review-padding;
+
+  &__header {
+    font-size: $title-font;
+  }
+
   &__comment {
     margin: 1rem 0;
   }

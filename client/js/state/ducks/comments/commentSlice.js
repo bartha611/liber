@@ -5,6 +5,8 @@ const initialState = {
   review: null,
   comments: [],
   totalComments: null,
+  totalPages: null,
+  currentPage: null,
   error: false,
 };
 
@@ -21,6 +23,16 @@ const commentSlice = createSlice({
       state.review = action.payload.review;
       state.comments = action.payload.comments;
       state.totalComments = action.payload.count;
+      state.totalPages = action.payload.total_pages;
+      state.currentPage = action.payload.page;
+    },
+    createComment(state, action) {
+      state.loading = false;
+      state.totalComments += 1;
+      state.comments =
+        state.totalPages === state.currentPage
+          ? [...state.comments, action.payload]
+          : state.comments;
     },
     errorComment(state) {
       state.loading = false;
@@ -29,6 +41,11 @@ const commentSlice = createSlice({
   },
 });
 
-export const { loadComment, readComment, errorComment } = commentSlice.actions;
+export const {
+  loadComment,
+  readComment,
+  createComment,
+  errorComment,
+} = commentSlice.actions;
 
 export default commentSlice.reducer;

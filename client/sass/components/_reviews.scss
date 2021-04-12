@@ -1,0 +1,32 @@
+.review {
+  margin: 1rem 0;
+
+  &__user {
+    font-weight: bold;
+  }
+
+  &__header {
+    display: inline-block;
+
+    &-text {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__rating {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  &__totalComments {
+    cursor: pointer;
+    color: darkgreen;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

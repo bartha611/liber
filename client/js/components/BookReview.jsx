@@ -21,18 +21,17 @@ import { useHistory } from "react-router";
 const BookReviews = ({ reviews }) => {
   const history = useHistory();
   const formatReview = (text) => {
-    const ellipsis = text.length > 200 ? "..." : "";
-    return `${text.slice(0, 200)}${ellipsis}`;
+    const ellipsis = text.length > 150 ? "..." : "";
+    return `${text.slice(0, 150)}${ellipsis}`;
   };
 
   return (
     <Container>
       <div className="BookReviews">
         {reviews?.map((review) => (
-          <Col xs="12" md="6">
+          <Col xs="12" md="6" className="BookReviews__content" key={review.id}>
             <div
               className="BookReviews__item"
-              key={review.id}
               onClick={() => history.push(`reviews/${review.id}`)}
             >
               <img

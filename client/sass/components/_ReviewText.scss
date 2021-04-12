@@ -1,7 +1,26 @@
 .ReviewText {
   &__header {
-    font-size: 3.4rem;
-    margin: 1rem 0;
+    font-size: $title-font;
+    padding: $review-padding;
     font-weight: bold;
+  }
+
+  &__headline {
+    padding: $review-padding;
+    font-style: italic;
+  }
+
+  &__review {
+    padding: $review-padding;
+  }
+
+  &__synopsis {
+    padding: $review-padding;
+    background: $border-color;
+    border-radius: 10px;
+
+    &-header {
+      font-weight: bold;
+    }
   }
 }

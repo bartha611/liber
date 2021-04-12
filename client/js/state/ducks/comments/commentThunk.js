@@ -3,6 +3,7 @@ import * as actions from "./commentSlice";
 
 const populateData = (data) => ({
   READ: actions.readComment(data),
+  CREATE: actions.createComment(data),
 });
 
 const fetchComments = (url, method, data, operation) => async (dispatch) => {

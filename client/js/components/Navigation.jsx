@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks } from "../state/ducks/books";
-import { useDebounce } from "../utils";
+import { useDebounce, isAuthenticated } from "../utils";
 import SearchBook from "./SearchBook";
 
 const Navigation = () => {
@@ -24,6 +24,22 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const query = useDebounce(search, 500);
+
+  useEffect(() => {
+    const inputClick = (e) => {
+      const element = document.querySelector(".searchBook__list");
+      const name = e.target.className.split("__")[0];
+      if (name !== "searchBook" && name !== "form-control") {
+        element.style.display = "none";
+      } else {
+        element.style.display = "block";
+      }
+    };
+
+    document.addEventListener("click", inputClick);
+
+    return () => document.removeEventListener("click", inputClick);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchBooks(query));
@@ -39,14 +55,16 @@ const Navigation = () => {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem style={{ padding: "0 0.5rem" }}>
-              <NavLink to="/login">Login</NavLink>
-            </NavItem>
-            <NavItem style={{ padding: "0 0.5rem" }}>
-              <NavLink to="/">Sign-up</NavLink>
-            </NavItem>
-          </Nav>
+          {!isAuthenticated() && (
+            <Nav className="mr-auto" navbar>
+              <NavItem style={{ padding: "0 0.5rem" }}>
+                <NavLink to="/login">Login</NavLink>
+              </NavItem>
+              <NavItem style={{ padding: "0 0.5rem" }}>
+                <NavLink to="/">Sign-up</NavLink>
+              </NavItem>
+            </Nav>
+          )}
           <Nav className="ml-auto" navbar>
             <NavItem className="searchBook">
               <InputGroup>
@@ -59,9 +77,7 @@ const Navigation = () => {
               </InputGroup>
               <ListGroup className="searchBook__list">
                 {books?.map((book) => (
-                  <ListGroupItem key={book.id} style={{ fontSize: "1.6rem" }}>
-                    <SearchBook book={book} />
-                  </ListGroupItem>
+                  <SearchBook book={book} />
                 ))}
               </ListGroup>
             </NavItem>

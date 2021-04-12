@@ -12,6 +12,7 @@ import ReviewRating from "./ReviewRating";
  * @param {String} props.book.title - Title of book
  * @param {String} props.book.authors - Authors of book
  * @param {String} props.book.thumbnail - Url of thumbnail
+ * @param {String} props.book.description - Description of book
  * @param {Number} props.book.avgRating - Average rating of book on website
  */
 
@@ -33,7 +34,10 @@ const BookHeader = ({ book }) => (
         <div className="BookHeader__info">
           <h2 className="BookHeader__title">{book?.title}</h2>
           <div className="BookHeader__rating">
-            <ReviewRating rating={book?.avgRating} />
+            <ReviewRating
+              rating={book?.avgRating ?? 0}
+              outlineColor="lightgray"
+            />
           </div>
           <h5 className="BookHeader__authors">By {book?.authors}</h5>
         </div>
@@ -47,7 +51,7 @@ BookHeader.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     authors: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    avgRating: PropTypes.number.isRequired,
+    avgRating: PropTypes.string.isRequired,
   }).isRequired,
 };
 

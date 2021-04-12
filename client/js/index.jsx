@@ -6,8 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../sass/app.scss";
 import { store } from "./state/store";
 import ReviewPage from "./views/ReviewPage";
+import BookPage from "./views/BookPage";
 import Home from "./views/Home";
 import Login from "./views/Login";
+import SignUp from "./views/SignUp";
 
 const App = () => (
   <Provider store={store}>
@@ -21,6 +23,12 @@ const App = () => (
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/books/:id">
+          <BookPage />
         </Route>
       </Switch>
     </Router>

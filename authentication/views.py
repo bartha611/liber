@@ -5,12 +5,14 @@ from .models import User
 
 # Create your views here.
 class RegistrationView(generics.CreateAPIView):
+    authentication_classes = ()
     serializer_class = RegistrationSerializer
     permission_classes = (AllowAny,)
     queryset = User.objects.all()
 
 
 class LoginView(generics.GenericAPIView):
+    authentication_classes = ()
     serializer_class = LoginSerializer
     permission_classes = (AllowAny,)
     queryset = User.objects.all()

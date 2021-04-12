@@ -4,10 +4,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../utils";
 import { fetchComments } from "../state/ducks/comments";
-import Navigation from "./../components/Navigation";
-import BookHeader from "./../components/BookHeader";
-import ReviewText from "./../components/ReviewText";
-import Comments from "./../components/Comments";
+import Navigation from "../components/Navigation";
+import BookHeader from "../components/BookHeader";
+import ReviewHeader from "../components/ReviewHeader";
+import ReviewText from "../components/ReviewText";
+import Comments from "../components/Comments";
+import TextArea from "../components/TextArea";
+import { Helmet } from "react-helmet";
 
 /**
  * Component for the Review Page
@@ -15,20 +18,22 @@ import Comments from "./../components/Comments";
 
 const ReviewPage = () => {
   const { id } = useParams();
-  const { review, comments, totalComments } = useSelector(
-    (state) => state.comments
-  );
+  const { review, comments } = useSelector((state) => state.comments);
 
   useFetch(`/api/reviews/${id}/comments`, "GET", null, "READ", fetchComments);
 
   return (
     <div className="ReviewPage">
+      <Helmet>
+        <title>Review {id}</title>
+      </Helmet>
       <Navigation />
       <BookHeader book={review?.book} />
-
       <Col sm="12" md={{ size: 8, offset: 2 }} className="ReviewText__body">
+        <ReviewHeader />
         <ReviewText review={review} />
-        <Comments comments={comments} totalComments={totalComments} />
+        <Comments comments={comments} review={id} />
+        <TextArea type="comment" id={id} />
       </Col>
     </div>
   );

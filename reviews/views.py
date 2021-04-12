@@ -36,6 +36,14 @@ class BookReviews(generics.ListCreateAPIView):
         return (
             Review.objects.filter(book=book)
             .select_related("user", "book")
+            .annotate(
+                total_comments=Subquery(
+                    Comment.objects.filter(review=OuterRef("pk"))
+                    .values("review")
+                    .annotate(count=Count("pk"))
+                    .values("count")
+                )
+            )
             .prefetch_related("comments", "comments__user")
         )
 

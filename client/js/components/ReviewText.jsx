@@ -11,11 +11,24 @@ import PropTypes from "prop-types";
  */
 
 const ReviewText = ({ review }) => {
-  console.log(review);
+  const reviewTitles = [
+    "Didn't Like It",
+    "It was Ok",
+    "Liked It",
+    "Really Liked It",
+    "Loved It",
+  ];
 
   return (
     <div className="ReviewText">
-      <h2 className="ReviewText__header">Review</h2>
+      <div className="ReviewText__header">
+        {reviewTitles[review?.rating - 1]}
+      </div>
+      <div className="ReviewText__headline">{review?.headline}</div>
+      <div className="ReviewText__synopsis">
+        <h3 className="ReviewText__synopsis-header">Synopsis</h3>
+        {ReactHTMLParser(review?.book?.description)}
+      </div>
       <div className="ReviewText__review">
         {ReactHTMLParser(review?.review)}
       </div>

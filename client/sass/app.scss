@@ -1,8 +1,9 @@
 /* import variables */
 @import "variables";
 
-/* import layout */
-@import "layout";
+/* import layouts */
+@import "layout/grid";
+@import "layout/forms";
 
 /* import components */
 @import "components/SearchBook";
@@ -11,6 +12,9 @@
 @import "components/Headline";
 @import "components/HomeMenu";
 @import "components/ReviewText";
+@import "components/ReviewHeader";
+@import "components/TextArea";
+@import "components/reviews";
 
 /* import pages */
 @import "pages/BookHeader";

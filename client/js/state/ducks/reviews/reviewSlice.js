@@ -18,6 +18,7 @@ const reviewSlice = createSlice({
     },
     readReviews(state, action) {
       state.loading = false;
+      state.book = action.payload.book;
       state.reviews = action.payload.reviews;
       state.nextPage = action.payload.next;
     },
