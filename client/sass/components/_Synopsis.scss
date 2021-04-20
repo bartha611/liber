@@ -1,0 +1,11 @@
+.synopsis {
+  margin: 1rem 0;
+  padding: $review-padding;
+  background: $border-color;
+  border-radius: 1rem;
+
+  &__title {
+    font-size: $title-font;
+    font-weight: bold;
+  }
+}

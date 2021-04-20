@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { updateReview } from "../reviews/reviewSlice";
 
 const initialState = {
   loading: false,
@@ -37,6 +38,12 @@ const commentSlice = createSlice({
     errorComment(state) {
       state.loading = false;
       state.error = true;
+    },
+  },
+  extraReducers: {
+    [updateReview]: (state, action) => {
+      state.review =
+        state.review?.id === action.payload.id ? action.payload : state.review;
     },
   },
 });

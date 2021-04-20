@@ -1,5 +1,6 @@
 import React from "react";
 import { Col } from "reactstrap";
+import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../utils";
@@ -10,7 +11,6 @@ import ReviewHeader from "../components/ReviewHeader";
 import ReviewText from "../components/ReviewText";
 import Comments from "../components/Comments";
 import TextArea from "../components/TextArea";
-import { Helmet } from "react-helmet";
 
 /**
  * Component for the Review Page
@@ -29,7 +29,7 @@ const ReviewPage = () => {
       </Helmet>
       <Navigation />
       <BookHeader book={review?.book} />
-      <Col sm="12" md={{ size: 8, offset: 2 }} className="ReviewText__body">
+      <Col sm="12" lg={{ size: 8, offset: 2 }} className="ReviewText__body">
         <ReviewHeader />
         <ReviewText review={review} />
         <Comments comments={comments} review={id} />

@@ -3,7 +3,7 @@ import api from "../../utils/api";
 
 const populateData = (results) => ({
   READ: actions.readReviews(results),
-  PAGINATE: actions.paginateReviews(results),
+  UPDATE: actions.updateReview(results),
 });
 
 const fetchReviews = (url, method, data, operation) => async (dispatch) => {

@@ -21,6 +21,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             "headline",
             "book",
             "rating",
+            "created_at",
             "user",
             "total_comments",
             "comments",
@@ -38,4 +39,21 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ["id", "user", "rating", "review", "headline", "book", "totalComments"]
+        fields = [
+            "id",
+            "user",
+            "rating",
+            "review",
+            "headline",
+            "created_at",
+            "book",
+            "totalComments",
+        ]
+
+
+class BasicReviewSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ["id", "user", "rating", "review", "headline", "created_at"]

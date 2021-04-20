@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   book: null,
   reviews: [],
+  totalPages: null,
+  userReview: null,
   nextPage: null,
   error: false,
 };
@@ -16,16 +18,25 @@ const reviewSlice = createSlice({
       state.loading = true;
       state.error = false;
     },
+    createReview(state, action) {
+      state.loading = false;
+      state.book = action.payload.book;
+      state.userReview = action.payload;
+    },
     readReviews(state, action) {
       state.loading = false;
       state.book = action.payload.book;
-      state.reviews = action.payload.reviews;
+      state.reviews = action.payload?.reviews ?? null;
+      state.userReview = action.payload.userReview;
+      state.totalPages = action.payload.total_pages;
       state.nextPage = action.payload.next;
     },
-    paginateReviews(state, action) {
+    updateReview(state, action) {
       state.loading = false;
-      state.reviews = [...state.reviews, ...action.payload.reviews];
-      state.nextPage = action.payload.next;
+      state.reviews = state.reviews?.map((review) =>
+        review.id === action.payload.id ? action.payload : review
+      );
+      state.userReview = action.payload;
     },
     deleteReview(state, action) {
       state.loading = false;
@@ -43,7 +54,7 @@ const reviewSlice = createSlice({
 export const {
   loadReview,
   readReviews,
-  paginateReviews,
+  updateReview,
   errorReview,
 } = reviewSlice.actions;
 

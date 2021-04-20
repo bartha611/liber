@@ -1,5 +1,6 @@
 import requests
 import urllib.parse
+from reviews.models import Review
 from Liber import settings
 
 
@@ -34,6 +35,7 @@ def getBook(bookId):
         "authors": ", ".join(results.get("volumeInfo", {}).get("authors", [])),
     }
 
+    # Get User Review
     return book
 
 

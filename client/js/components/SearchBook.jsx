@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { ListGroupItem } from "reactstrap";
-import { useHistory } from "react-router";
 
 /**
  * Component for displaying search results on books

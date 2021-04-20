@@ -7,6 +7,13 @@ body {
   font-family: $font-stack;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 h1,
 h2,
 h3,
@@ -28,5 +35,15 @@ a {
 
   &:hover {
     outline: none;
+  }
+}
+
+.loadMore {
+  cursor: pointer;
+  font-weight: bold;
+  color: darkgreen;
+
+  &:hover {
+    text-decoration: underline;
   }
 }

@@ -1,16 +1,26 @@
+.reviews {
+
+  &__title {
+    font-size: 3.4rem;
+    padding: $review-padding;
+  }
+}
 .review {
   margin: 1rem 0;
+  padding: $review-padding;
+  position: relative;
 
   &__user {
     font-weight: bold;
   }
 
-  &__header {
+  &__info {
     display: inline-block;
+  }
 
-    &-text {
-      margin-left: 0.5rem;
-    }
+  &__header {
+    display: flex;
+    justify-content: space-between;
   }
 
   &__rating {
@@ -20,13 +30,22 @@
     font-size: 1.1rem;
   }
 
-  &__totalComments {
-    cursor: pointer;
-    color: darkgreen;
-    font-weight: 700;
+  &__date {
+    display: inline-block;
+    color: $text-muted;
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &__totalComments {
+    @include link($background-primary);
+    font-weight: 700;
+  }
+
+  &__comments {
+    background: $button-primary;
+  }
+
+  &__link {
+    @include link($background-primary);
+    font-weight: 700;
   }
 }

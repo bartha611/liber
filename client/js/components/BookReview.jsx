@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Col } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import ReviewRating from "./ReviewRating";
-import { useHistory } from "react-router";
 
 /**
  * Component that displays reviews for Front Page
@@ -20,6 +20,7 @@ import { useHistory } from "react-router";
 
 const BookReviews = ({ reviews }) => {
   const history = useHistory();
+
   const formatReview = (text) => {
     const ellipsis = text.length > 150 ? "..." : "";
     return `${text.slice(0, 150)}${ellipsis}`;

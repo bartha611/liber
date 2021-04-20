@@ -1,6 +1,6 @@
 .ReviewRating {
+  display: inline-block;
   position: relative;
-  width: fit-content;
 
   &__stars {
     display: inline-block;
@@ -27,6 +27,7 @@
 
   &__star {
     display: inline-block;
+    cursor: pointer;
     padding: 0;
     margin: 0;
   }

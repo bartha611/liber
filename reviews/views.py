@@ -25,6 +25,7 @@ class BookReviews(generics.ListCreateAPIView):
         return context
 
     def get_serializer(self, *args, **kwargs):
+
         if self.request.method != "GET":
             return ReviewDetailSerializer(*args, **kwargs)
         return ReviewSerializer(*args, **kwargs)
@@ -108,7 +109,7 @@ class ReviewView(generics.ListAPIView):
 
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ReviewDetailSerializer
+    serializer_class = ReviewSerializer
     permission_classes = (ReviewPermission,)
 
     def get_authenticators(self):
@@ -117,28 +118,29 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
         return ()
 
     def get_queryset(self):
-        if self.request.method == "GET":
-            return (
-                Review.objects.select_related("user")
-                .prefetch_related("comments", "comments__user")
-                .prefetch_related(
-                    Prefetch(
-                        "book",
-                        queryset=Book.objects.all().annotate(
-                            avgRating=Avg("reviews__rating")
-                        ),
-                    )
+        return (
+            Review.objects.select_related("user")
+            .prefetch_related("comments", "comments__user")
+            .annotate(
+                total_comments=Subquery(
+                    Comment.objects.filter(review=OuterRef("pk"))
+                    .values("review")
+                    .annotate(count=Count("pk"))
+                    .values("count")
                 )
             )
-        return Review.objects.all().select_related("user", "book")
-
-    def get_serializer(self, *args, **kwargs):
-        if self.request.method == "GET":
-            return ReviewSerializer(*args, **kwargs)
-        return ReviewDetailSerializer(*args, **kwargs)
+            .prefetch_related(
+                Prefetch(
+                    "book",
+                    queryset=Book.objects.all().annotate(
+                        avgRating=Avg("reviews__rating")
+                    ),
+                )
+            )
+        )
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         id = instance.id
-        self.perform_destroy()
+        self.perform_destroy(instance)
         return Response({"id": id}, status.HTTP_200_OK)

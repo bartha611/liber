@@ -1,6 +1,9 @@
 /* import variables */
 @import "variables";
 
+/* import abstracts */
+@import "abstracts/mixins";
+
 /* import layouts */
 @import "layout/grid";
 @import "layout/forms";
@@ -15,6 +18,10 @@
 @import "components/ReviewHeader";
 @import "components/TextArea";
 @import "components/reviews";
+@import "components/RatingDetail";
+@import "components/Synopsis";
+@import "components/bookActivity";
+@import "components/ReviewForm";
 
 /* import pages */
 @import "pages/BookHeader";

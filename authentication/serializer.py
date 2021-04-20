@@ -7,7 +7,11 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "username", "email"]
+        fields = [
+            "id",
+            "username",
+            "email",
+        ]
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -25,7 +29,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(max_length=255, write_only=True)
-    email = serializers.EmailField()
+    email = serializers.EmailField(write_only=True)
+    user = UserSerializer(read_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
@@ -43,4 +48,4 @@ class LoginSerializer(serializers.Serializer):
         if user is None:
             raise ValidationError("Email and/or password not valid")
 
-        return {"email": email, "token": user.token}
+        return {"user": user, "token": user.token}

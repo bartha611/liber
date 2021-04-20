@@ -9,7 +9,6 @@ import {
   Collapse,
   Input,
   InputGroup,
-  ListGroupItem,
   ListGroup,
 } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +27,9 @@ const Navigation = () => {
   useEffect(() => {
     const inputClick = (e) => {
       const element = document.querySelector(".searchBook__list");
+      if (!e.target.className) {
+        element.style.display = "none";
+      }
       const name = e.target.className.split("__")[0];
       if (name !== "searchBook" && name !== "form-control") {
         element.style.display = "none";

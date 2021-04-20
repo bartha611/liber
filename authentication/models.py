@@ -30,7 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self._generate_token()
 
     def _generate_token(self):
-        dt = datetime.datetime.now() + datetime.timedelta(days=1)
+        dt = datetime.datetime.now() + datetime.timedelta(days=60)
 
         token = jwt.encode(
             {"id": self.pk, "exp": dt.strftime("%s")},

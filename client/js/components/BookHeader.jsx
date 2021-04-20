@@ -25,7 +25,12 @@ const BookHeader = ({ book }) => (
       <div className="BookHeader__wrapper" />
     </div>
     <div className="BookHeader__header">
-      <Col sm="12" md={{ size: 8, offset: 2 }} className="BookHeader__content">
+      <Col
+        sm="12"
+        md="8"
+        lg={{ size: 5, offset: 2 }}
+        className="BookHeader__content"
+      >
         <img
           className="BookHeader__thumbnail"
           src={book?.thumbnail}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Form, FormGroup, Input, Label, Button, Alert } from "reactstrap";
 import Navigation from "../components/Navigation";
 import { fetchAuth } from "../state/ducks/auth";
@@ -33,7 +33,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div style={{ height: "100vh" }}>
       <Navigation />
       <div className="form">
         <h2 className="form__title">Sign-Up</h2>
@@ -47,7 +47,7 @@ const SignUp = () => {
               onChange={(e) => setEmail(e.target.value)}
               type="text"
               placeholder="Enter Email"
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label className="form__label">Username</Label>
@@ -58,7 +58,7 @@ const SignUp = () => {
               onChange={(e) => setUsername(e.target.value)}
               type="text"
               placeholder="Enter Email"
-            ></Input>
+            />
           </FormGroup>
           <FormGroup>
             <Label className="form__label">Password</Label>

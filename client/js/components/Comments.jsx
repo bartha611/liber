@@ -63,18 +63,18 @@ const Comments = ({ comments, review }) => {
           pageRangeDisplayed={5}
           marginPagesDisplayed={2}
           onPageChange={handleClick}
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          containerClassName={"pagination"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          activeClassName={"active"}
+          previousLabel="previous"
+          nextLabel="next"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          activeClassName="active"
         />
       </div>
     </div>

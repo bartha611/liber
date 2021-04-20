@@ -1,4 +1,8 @@
+from reviews.serializer import BasicReviewSerializer
+from books.models import Book
 import json
+from reviews.models import Review
+from authentication.backend import JWTAuth
 from django.http import Http404
 from django.http import HttpResponse
 from .api import searchBooks, getBook
@@ -24,9 +28,21 @@ def detailView(request, bookId):
     if not bookId:
         raise Http404("Must provide a volume id")
 
+    obj = {}
+
     book = getBook(bookId)
 
     if not book:
         raise Http404("Cannot access api or no volume exists")
 
-    return HttpResponse(json.dumps(book), content_type="application/json")
+    obj["book"] = book
+
+    try:
+        user = JWTAuth().authenticate(request=request)
+        bookObject = Book.objects.get(id=book["id"])
+        userReview = Review.objects.get(user=user[0], book=bookObject)
+        obj["userReview"] = BasicReviewSerializer(userReview).data
+    except Exception:
+        userReview = None
+        obj["userReview"] = None
+    return HttpResponse(json.dumps(obj), content_type="application/json")

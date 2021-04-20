@@ -1,0 +1,24 @@
+@mixin button($color) {
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: $color;
+
+  &:hover {
+    background: darken($color, 10%);
+  }
+}
+
+@mixin link($color) {
+  color: $color; 
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@mixin FlexContainer($align: center, $justify:center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}

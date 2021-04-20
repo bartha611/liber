@@ -16,7 +16,7 @@ const authSlice = createSlice({
     },
     loginAuth(state, action) {
       state.loading = false;
-      state.user = action.payload.email;
+      state.user = action.payload.user;
     },
     logoutAuth(state) {
       state.loading = false;

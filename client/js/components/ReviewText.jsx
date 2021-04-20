@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactHTMLParser from "react-html-parser";
 import PropTypes from "prop-types";
 
@@ -11,6 +11,8 @@ import PropTypes from "prop-types";
  */
 
 const ReviewText = ({ review }) => {
+  const [loadMore, setLoadMore] = useState(false);
+
   const reviewTitles = [
     "Didn't Like It",
     "It was Ok",
@@ -18,6 +20,15 @@ const ReviewText = ({ review }) => {
     "Really Liked It",
     "Loved It",
   ];
+
+  const formatText = (text, more) => {
+    if (!text) {
+      return "";
+    } else if (text.length > 300) {
+      return `${text.slice(0, 300)}`;
+    }
+    return text;
+  };
 
   return (
     <div className="ReviewText">
@@ -27,7 +38,18 @@ const ReviewText = ({ review }) => {
       <div className="ReviewText__headline">{review?.headline}</div>
       <div className="ReviewText__synopsis">
         <h3 className="ReviewText__synopsis-header">Synopsis</h3>
-        {ReactHTMLParser(review?.book?.description)}
+        <div className="ReviewText__synopsis-body">
+          {ReactHTMLParser(
+            loadMore
+              ? review?.book?.description
+              : review?.book?.description.slice(0, 300)
+          )}
+          {review?.book?.description.length > 300 && (
+            <span className="loadMore" onClick={() => setLoadMore(!loadMore)}>
+              ...{loadMore ? "Less" : "More"}
+            </span>
+          )}
+        </div>
       </div>
       <div className="ReviewText__review">
         {ReactHTMLParser(review?.review)}
