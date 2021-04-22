@@ -49,9 +49,10 @@ const TextArea = ({ type, id }) => {
       <textarea
         className="textarea__textarea"
         value={text}
+        wrap="hard"
         onChange={(e) => setText(e.target.value)}
         rows={5}
-      ></textarea>
+      />
       <Button className="textarea__button" onClick={handleClick}>
         Post
       </Button>

@@ -2,8 +2,8 @@ import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import { Alert, Col } from "reactstrap";
 import { fetchReviews } from "../state/ducks/reviews";
 import { useFetch } from "../utils";
@@ -15,6 +15,8 @@ import ReviewRating from "./ReviewRating";
  */
 
 const ReviewForm = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [rows, setRows] = useState(10);
   const { bookId } = useParams();
   const { loading, userReview, book, error } = useSelector(
@@ -27,6 +29,22 @@ const ReviewForm = () => {
   useEffect(() => {
     setReview(userReview?.review);
   }, [loading]);
+
+  const addReview = () => {
+    if (userReview) {
+      const result = review.replace(/\n/g, "<br/>\n");
+      dispatch(
+        fetchReviews(
+          `/api/reviews/${userReview.id}`,
+          "PATCH",
+          { review: result },
+          "UPDATE",
+          history,
+          `/books/${bookId}`
+        )
+      );
+    }
+  };
 
   return (
     <div>
@@ -79,12 +97,14 @@ const ReviewForm = () => {
           <div className="ReviewForm__body">
             <div className="ReviewForm__rating">
               <span>My rating: </span>
-              <ReviewRating
-                rating={userReview?.rating ?? 0}
-                interactive
-                reviewId={userReview?.id}
-                bookId={book?.id}
-              />
+              {!loading && (
+                <ReviewRating
+                  rating={userReview?.rating ?? 0}
+                  interactive
+                  reviewId={userReview?.id}
+                  bookId={book?.id}
+                />
+              )}
             </div>
             <div className="ReviewForm__review">
               <div className="ReviewForm__review-header">
@@ -100,13 +120,18 @@ const ReviewForm = () => {
                 name="review"
                 id="review"
                 rows={rows}
+                wrap="hard"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
                 placeholder="Enter your review (optional)"
                 className="ReviewForm__review-body"
               />
             </div>
-            <button className="ReviewForm__submit" type="button">
+            <button
+              className="ReviewForm__submit"
+              type="button"
+              onClick={addReview}
+            >
               Submit
             </button>
           </div>

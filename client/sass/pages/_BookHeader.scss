@@ -45,6 +45,7 @@
   }
 
   &__title {
+    @include link(white);
     font-weight: 700;
     margin-top: 0.5rem;
     font-size: 3.2rem;

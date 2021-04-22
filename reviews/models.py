@@ -13,7 +13,7 @@ class Review(models.Model):
     rating = models.IntegerField(
         _("rating"), validators=[MaxValueValidator(5), MinValueValidator(1)]
     )
-    headline = models.CharField(_("Headline"), max_length=140)
+    headline = models.CharField(_("Headline"), max_length=140, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
     book = models.ForeignKey(
         Book, related_name="reviews", on_delete=models.CASCADE, db_index=True

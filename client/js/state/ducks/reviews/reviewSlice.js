@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   book: null,
   reviews: [],
+  commentPage: null,
   totalPages: null,
   userReview: null,
   nextPage: null,
@@ -31,6 +32,17 @@ const reviewSlice = createSlice({
       state.totalPages = action.payload.total_pages;
       state.nextPage = action.payload.next;
     },
+    loadComments(state, action) {
+      state.loading = false;
+      state.reviews = state.reviews.map((review) => {
+        review.comments =
+          review.id === action.payload.review.id
+            ? action.payload.comments
+            : null;
+
+        return review;
+      });
+    },
     updateReview(state, action) {
       state.loading = false;
       state.reviews = state.reviews?.map((review) =>
@@ -54,7 +66,9 @@ const reviewSlice = createSlice({
 export const {
   loadReview,
   readReviews,
+  loadComments,
   updateReview,
+  createReview,
   errorReview,
 } = reviewSlice.actions;
 

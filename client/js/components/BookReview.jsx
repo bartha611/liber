@@ -1,4 +1,5 @@
 import React from "react";
+import ReactHTMLParser from "react-html-parser";
 import PropTypes from "prop-types";
 import { Container, Col } from "reactstrap";
 import { useHistory } from "react-router-dom";
@@ -22,8 +23,11 @@ const BookReviews = ({ reviews }) => {
   const history = useHistory();
 
   const formatReview = (text) => {
-    const ellipsis = text.length > 150 ? "..." : "";
-    return `${text.slice(0, 150)}${ellipsis}`;
+    if (!text) {
+      return "";
+    }
+    const ellipsis = text?.length > 150 ? "..." : "";
+    return `${text?.slice(0, 150)}${ellipsis}`;
   };
 
   return (
@@ -48,7 +52,7 @@ const BookReviews = ({ reviews }) => {
                   rating={review.rating}
                 />
                 <div className="BookReviews__review">
-                  {formatReview(review.review)}
+                  {ReactHTMLParser(formatReview(review.review))}
                 </div>
               </div>
             </div>

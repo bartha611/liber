@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Button, Col, Row } from "reactstrap";
 import ReactPaginate from "react-paginate";
 import RatingDetail from "../../sass/components/RatingDetail";
@@ -22,6 +22,7 @@ import ReviewRating from "../components/ReviewRating";
 
 const BookPage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [page, setPage] = useState(1);
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
@@ -49,7 +50,9 @@ const BookPage = () => {
           lg={{ size: 5, offset: 2 }}
           className="BookPage__body"
         >
-          {book && <BookActivity book={book} userReview={userReview} />}
+          {book && userReview && (
+            <BookActivity book={book} userReview={userReview} />
+          )}
           {book?.description && <Synopsis description={book?.description} />}
           <div className="reviews">
             <h2 className="reviews__title">Reviews</h2>
@@ -70,7 +73,10 @@ const BookPage = () => {
                     bookId={book?.id}
                     rating={userReview?.rating ?? 0}
                   />
-                  <Button style={{ fontSize: "1.6rem", marginLeft: "2rem" }}>
+                  <Button
+                    style={{ fontSize: "1.6rem", marginLeft: "2rem" }}
+                    onClick={() => history.push(`/review/${book?.id}`)}
+                  >
                     Write a Review
                   </Button>
                 </div>

@@ -21,15 +21,6 @@ const ReviewText = ({ review }) => {
     "Loved It",
   ];
 
-  const formatText = (text, more) => {
-    if (!text) {
-      return "";
-    } else if (text.length > 300) {
-      return `${text.slice(0, 300)}`;
-    }
-    return text;
-  };
-
   return (
     <div className="ReviewText">
       <div className="ReviewText__header">
@@ -42,9 +33,9 @@ const ReviewText = ({ review }) => {
           {ReactHTMLParser(
             loadMore
               ? review?.book?.description
-              : review?.book?.description.slice(0, 300)
+              : review?.book?.description?.slice(0, 300)
           )}
-          {review?.book?.description.length > 300 && (
+          {review?.book?.description?.length > 300 && (
             <span className="loadMore" onClick={() => setLoadMore(!loadMore)}>
               ...{loadMore ? "Less" : "More"}
             </span>

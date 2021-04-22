@@ -120,7 +120,6 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return (
             Review.objects.select_related("user")
-            .prefetch_related("comments", "comments__user")
             .annotate(
                 total_comments=Subquery(
                     Comment.objects.filter(review=OuterRef("pk"))

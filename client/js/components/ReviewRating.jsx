@@ -41,7 +41,7 @@ const ReviewRating = ({
     } else if (!reviewId && bookId && interactive) {
       dispatch(
         fetchReviews(
-          `/api/books/${bookId}`,
+          `/api/books/${bookId}/reviews`,
           "POST",
           { rating: value },
           "CREATE"

@@ -1,7 +1,6 @@
 .comments {
-  padding: $review-padding;
-
   &__header {
+    padding: $review-padding;
     font-size: $title-font;
   }
 
@@ -11,12 +10,20 @@
 }
 
 .comment {
-  margin: 1.5rem 0;
+  overflow-wrap: break-word;
+
+  &__user {
+    font-weight: bold;
+    @include link($background-primary);
+  }
 
   &__header {
-    padding: 0.5rem;
     background: beige;
-    display: flex;
-    justify-content: space-between;
+    @include FlexContainer(center, space-between);
   }
+
+  &--margin {
+    margin: 1rem 0;
+  }
+
 }

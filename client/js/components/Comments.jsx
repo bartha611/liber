@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
-import ReactHTMLParser from "react-html-parser";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchComments } from "../state/ducks/comments";
+import Comment from "./Comment";
+import { fetchReviews } from "../state/ducks/reviews";
 
 /**
  * Component for comment section of reviews
  *
  * @param {Object} props - Props for comment
  * @param {Number} props.review - Review id
+ * @param {Number} props.currentPage Current page
  * @param {Object[]} props.comments - Comments for review
  * @param {Number} props.comments[].id - Id of comment
  * @param {String} props.comments[].comment - Comment text of review
@@ -20,47 +22,54 @@ import { fetchComments } from "../state/ducks/comments";
  *
  */
 
-const Comments = ({ comments, review }) => {
+const Comments = ({
+  comments,
+  review,
+  commentHeader,
+  totalComments,
+  currentPage,
+}) => {
   const dispatch = useDispatch();
-  const formatDate = (date) =>
-    new Date(date).toDateString().split(" ").slice(1, 4).join(" ");
-  const { totalPages, currentPage } = useSelector((state) => state.comments);
 
   const handleClick = (data) => {
     const page = data.selected + 1;
-    dispatch(
-      fetchComments(
-        `/api/reviews/${review}/comments?page=${page}`,
-        "GET",
-        null,
-        "READ"
-      )
-    );
+
+    if (commentHeader) {
+      dispatch(
+        fetchComments(
+          `/api/reviews/${review?.id}/comments?page=${page}`,
+          "GET",
+          null,
+          "READ"
+        )
+      );
+    } else {
+      dispatch(
+        fetchReviews(
+          `/api/reviews/${review?.id}/comments?page=${page}`,
+          "GET",
+          null,
+          "COMMENTS"
+        )
+      );
+    }
   };
 
   return (
     <div id="comments" className="comments">
-      <h2 className="comments__header">Comments</h2>
+      {commentHeader && <h2 className="comments__header">Comments</h2>}
       {comments?.map((comment, index) => (
-        <div className="comment" key={comment.id}>
-          <div className="comment__header">
-            <div>
-              <b>Message {(currentPage - 1) * 20 + index + 1}</b> By{" "}
-              {comment?.user.username}
-            </div>
-            <div className="comment__date">
-              {formatDate(comment?.created_at)}
-            </div>
-          </div>
-          <div className="comment__comment">
-            {ReactHTMLParser(comment?.comment)}
-          </div>
-        </div>
+        <Comment
+          comment={comment}
+          index={index}
+          currentPage={currentPage}
+          commentHeader={commentHeader}
+        />
       ))}
       <div className="comments__pagination">
         <ReactPaginate
-          pageCount={totalPages}
-          pageRangeDisplayed={5}
+          pageCount={Math.ceil(totalComments / 20)}
+          pageRangeDisplayed={3}
           marginPagesDisplayed={2}
           onPageChange={handleClick}
           previousLabel="previous"
@@ -83,6 +92,7 @@ const Comments = ({ comments, review }) => {
 
 Comments.propTypes = {
   totalComments: PropTypes.string.isRequired,
+  commentHeader: PropTypes.bool,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

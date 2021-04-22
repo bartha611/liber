@@ -66,8 +66,8 @@ const BookActivity = ({ book, userReview }) => {
           <div className="bookActivity__body">
             {loadMore
               ? ReactHTMLParser(userReview?.review)
-              : ReactHTMLParser(userReview?.review.slice(0, 300))}
-            {userReview?.review.length > 300 && (
+              : ReactHTMLParser(userReview?.review?.slice(0, 300))}
+            {userReview?.review?.length > 300 && (
               <span className="loadMore" onClick={() => setLoadMore(!loadMore)}>
                 ...{loadMore ? "Less" : "More"}
               </span>

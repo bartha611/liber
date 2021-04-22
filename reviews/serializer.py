@@ -10,7 +10,6 @@ from books.serializers import BookSerializer
 class ReviewSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     total_comments = serializers.IntegerField(read_only=True)
-    comments = serializers.SerializerMethodField()
     book = BookSerializer(required=False, read_only=True)
 
     class Meta:
@@ -19,17 +18,12 @@ class ReviewSerializer(serializers.ModelSerializer):
             "id",
             "review",
             "headline",
+            "total_comments",
             "book",
             "rating",
             "created_at",
             "user",
-            "total_comments",
-            "comments",
         ]
-
-    def get_comments(self, obj):
-        qs = obj.comments.all()[:50]
-        return CommentSerializer(instance=qs, many=True).data
 
 
 class ReviewDetailSerializer(serializers.ModelSerializer):

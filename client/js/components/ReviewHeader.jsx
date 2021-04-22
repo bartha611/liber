@@ -9,7 +9,9 @@ import ReviewRating from "./ReviewRating";
  */
 
 const ReviewHeader = () => {
-  const { review, totalComments } = useSelector((state) => state.comments);
+  const { review, totalComments, loading } = useSelector(
+    (state) => state.comments
+  );
 
   const scrollTo = () => {
     const element = document.getElementById("comments");
@@ -21,11 +23,13 @@ const ReviewHeader = () => {
       <li className="ReviewHeader__item">
         <span className="ReviewHeader__title">Review</span>
         <div className="ReviewHeader__rating">
-          <ReviewRating
-            rating={review?.rating}
-            outlineColor="darkgrey"
-            className="ReviewHeader__rating"
-          />
+          {!loading && (
+            <ReviewRating
+              rating={review?.rating}
+              outlineColor="darkgrey"
+              className="ReviewHeader__rating"
+            />
+          )}
         </div>
       </li>
       <li className="ReviewHeader__item" style={{ marginLeft: "1rem" }}>

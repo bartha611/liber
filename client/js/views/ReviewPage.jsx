@@ -18,7 +18,9 @@ import TextArea from "../components/TextArea";
 
 const ReviewPage = () => {
   const { id } = useParams();
-  const { review, comments } = useSelector((state) => state.comments);
+  const { review, comments, loading, currentPage, totalComments } = useSelector(
+    (state) => state.comments
+  );
 
   useFetch(`/api/reviews/${id}/comments`, "GET", null, "READ", fetchComments);
 
@@ -28,11 +30,17 @@ const ReviewPage = () => {
         <title>Review {id}</title>
       </Helmet>
       <Navigation />
-      <BookHeader book={review?.book} />
+      {!loading && <BookHeader book={review?.book} />}
       <Col sm="12" lg={{ size: 8, offset: 2 }} className="ReviewText__body">
         <ReviewHeader />
         <ReviewText review={review} />
-        <Comments comments={comments} review={id} />
+        <Comments
+          totalComments={totalComments}
+          comments={comments}
+          review={review}
+          commentHeader
+          currentPage={currentPage}
+        />
         <TextArea type="comment" id={id} />
       </Col>
     </div>

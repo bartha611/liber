@@ -5,6 +5,10 @@
     font-weight: bold;
   }
 
+  &__body {
+    padding: $review-padding;
+  }
+
   &__headline {
     padding: $review-padding;
     font-style: italic;
