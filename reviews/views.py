@@ -2,7 +2,7 @@ from reviews.pagination import CustomPagination
 from django.db.models import Count, Subquery, Avg, Prefetch
 from django.db.models.expressions import OuterRef
 from authentication.backend import JWTAuth
-from rest_framework import generics, exceptions, status
+from rest_framework import generics, exceptions, status, renderers
 from rest_framework.response import Response
 from .permissions import ReviewPermission
 from .serializer import ReviewDetailSerializer, ReviewSerializer
@@ -17,12 +17,8 @@ from books.api import getBook
 
 class BookReviews(generics.ListCreateAPIView):
     permission_classes = (ReviewPermission,)
+    renderer_classes = (renderers.JSONRenderer,)
     pagination_class = CustomPagination
-
-    def get_context_data(self, **kwargs):
-        context = super(BookReviews, self).get_context_data(**kwargs)
-        context["shit"] = "shit"
-        return context
 
     def get_serializer(self, *args, **kwargs):
 

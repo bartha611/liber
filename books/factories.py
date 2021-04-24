@@ -31,3 +31,8 @@ books = [
 class BookFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Book
+
+    id = factory.fuzzy.FuzzyChoice(books)
+    title = factory.Faker("word")
+    thumbnail = factory.Faker("word")
+    description = factory.Faker("text")

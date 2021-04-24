@@ -1,7 +1,10 @@
+from django.test.client import Client
+from rest_framework.utils import json
+from comments.factories import CommentFactory
 from books.models import Book
 from django.test import TestCase
 from rest_framework import status
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APITestCase, RequestsClient
 from reviews.factories import Review, ReviewFactory
 from books.factories import BookFactory
 from authentication.factory import UserFactory

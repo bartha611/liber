@@ -85,6 +85,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("authentication.backend.JWTAuth",),
     "DEFAULT_PERMISSION_CLASSES": ("reviews.permissions.ReviewPermission",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
     "PAGE_SIZE": 50,
 }
 
