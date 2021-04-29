@@ -1,3 +1,4 @@
+from rest_framework.pagination import PageNumberPagination
 from reviews.pagination import CustomPagination
 from django.db.models import Count, Subquery, Avg, Prefetch
 from django.db.models.expressions import OuterRef
@@ -28,8 +29,6 @@ class BookReviews(generics.ListCreateAPIView):
 
     def get_queryset(self):
         book = self.kwargs.get("book", None)
-        if not book:
-            raise exceptions.ValidationError("Book id not provided")
         return (
             Review.objects.filter(book=book)
             .select_related("user", "book")
@@ -42,6 +41,7 @@ class BookReviews(generics.ListCreateAPIView):
                 )
             )
             .prefetch_related("comments", "comments__user")
+            .order_by("-id")
         )
 
     def get_authenticators(self):
@@ -76,7 +76,7 @@ class BookReviews(generics.ListCreateAPIView):
 class ReviewView(generics.ListAPIView):
     authentication_classes = ()
     serializer_class = ReviewDetailSerializer
-    pagination_class = CustomPagination
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         sort = self.request.query_params.get("sort", None)

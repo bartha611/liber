@@ -4,7 +4,8 @@ import json
 from reviews.models import Review
 from authentication.backend import JWTAuth
 from django.http import Http404
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
+from rest_framework.response import Response
 from .api import searchBooks, getBook
 
 # Create your views here.
@@ -45,4 +46,4 @@ def detailView(request, bookId):
     except Exception:
         userReview = None
         obj["userReview"] = None
-    return HttpResponse(json.dumps(obj), content_type="application/json")
+    return JsonResponse(data=obj, content_type="application/json")

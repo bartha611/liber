@@ -27,7 +27,7 @@ const reviewSlice = createSlice({
     readReviews(state, action) {
       state.loading = false;
       state.book = action.payload.book;
-      state.reviews = action.payload?.reviews ?? null;
+      state.reviews = action.payload?.results ?? null;
       state.userReview = action.payload.userReview;
       state.totalPages = action.payload.total_pages;
       state.nextPage = action.payload.next;

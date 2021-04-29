@@ -22,9 +22,6 @@ def getBook(bookId):
 
     results = response.json()
 
-    if hasattr(results, "error"):
-        return None
-
     book = {
         "id": results.get("id", None),
         "thumbnail": results.get("volumeInfo", {})
@@ -58,7 +55,7 @@ def searchBooks(search):
 
     results = response.json()
 
-    if not hasattr(results, "items"):
+    if results["totalItems"] == 0:
         return None
 
     # iterate over items and collect relevant information

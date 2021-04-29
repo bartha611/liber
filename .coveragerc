@@ -1,0 +1,12 @@
+[run]
+branch=True
+omit = ./env/*, wsgi.py, *tests*, *manage.py, *__init__.py, *migrations*, *wsgi*, *asgi
+
+[paths]
+source = *
+
+[report]
+omit = ./env/*, wsgi.py, *tests*, *manage.py, *__init__.py, *migrations*, *wsgi*, *asgi
+
+[html]
+directory = htmlcov

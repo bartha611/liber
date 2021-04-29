@@ -25,14 +25,14 @@ class JWTAuth(authentication.BaseAuthentication):
         return self._authenticate_token(token)
 
     def _authenticate_token(self, token):
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        except Exception:
+            raise exceptions.ValidationError("Error decoding token")
 
         try:
             user = User.objects.get(pk=payload["id"])
         except User.DoesNotExist:
             raise exceptions.ValidationError("Could not decode token")
-
-        if not user.is_active:
-            raise exceptions.ValidationError("User is no longer active")
 
         return (user, token)

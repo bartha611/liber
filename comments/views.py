@@ -1,3 +1,5 @@
+from django.contrib.auth.models import AnonymousUser
+from rest_framework.exceptions import ValidationError
 from comments.pagination import CommentPagination
 from authentication.backend import JWTAuth
 from django.http import Http404
@@ -25,9 +27,15 @@ class CommentView(generics.ListCreateAPIView):
             Review.objects.get(pk=reviewId)
         except Review.DoesNotExist:
             raise Http404()
-        return Comment.objects.filter(review=reviewId).select_related("user")
+        return (
+            Comment.objects.filter(review=reviewId)
+            .select_related("user")
+            .order_by("id")
+        )
 
     def perform_create(self, serializer):
+        if self.request.user == AnonymousUser():
+            raise ValidationError("User not authenticated")
         try:
             review = Review.objects.get(pk=self.kwargs["review"])
             serializer.save(user=self.request.user, review=review)
