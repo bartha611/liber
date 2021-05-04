@@ -71,6 +71,7 @@ const Navigation = () => {
             <NavItem className="searchBook">
               <InputGroup>
                 <Input
+                  id="input"
                   value={search}
                   style={{ fontSize: "1.6rem" }}
                   placeholder="Search Books"

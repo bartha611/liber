@@ -24,6 +24,11 @@
     width: 12.8rem;
     height: 20rem;
     border-radius: 5px;
+
+    &--empty {
+      @include FlexContainer();
+      background: rgb(0, 100, 0);
+    }
   }
 
   &__title {

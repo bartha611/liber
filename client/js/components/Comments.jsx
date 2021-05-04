@@ -10,7 +10,8 @@ import { fetchReviews } from "../state/ducks/reviews";
  * Component for comment section of reviews
  *
  * @param {Object} props - Props for comment
- * @param {Number} props.review - Review id
+ * @param {Object} props.review - Review
+ * @param {Number} props.review.id - Review id
  * @param {Number} props.currentPage Current page
  * @param {Object[]} props.comments - Comments for review
  * @param {Number} props.comments[].id - Id of comment
@@ -60,6 +61,7 @@ const Comments = ({
       {commentHeader && <h2 className="comments__header">Comments</h2>}
       {comments?.map((comment, index) => (
         <Comment
+          key={comment?.id}
           comment={comment}
           index={index}
           currentPage={currentPage}
@@ -91,7 +93,7 @@ const Comments = ({
 };
 
 Comments.propTypes = {
-  totalComments: PropTypes.string.isRequired,
+  totalComments: PropTypes.number.isRequired,
   commentHeader: PropTypes.bool,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
@@ -100,7 +102,7 @@ Comments.propTypes = {
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         username: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
+        email: PropTypes.string,
       }),
     })
   ),

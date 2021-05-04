@@ -61,7 +61,7 @@ Comment.propTypes = {
     user: PropTypes.shape({
       id: PropTypes.number.isRequired,
       username: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
+      email: PropTypes.string,
     }),
   }),
 };

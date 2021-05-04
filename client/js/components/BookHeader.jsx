@@ -66,7 +66,7 @@ BookHeader.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     authors: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    avgRating: PropTypes.string.isRequired,
+    avgRating: PropTypes.number.isRequired,
   }).isRequired,
 };
 

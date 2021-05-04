@@ -22,7 +22,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = null;
     },
-    errorAuth(state, action) {
+    errorAuth(state) {
       state.loading = false;
       state.error = true;
     },
