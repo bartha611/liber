@@ -48,14 +48,11 @@ describe("Navigation component", () => {
     wrapper = mount(<Navigation />);
     expect(wrapper).toBeDefined();
   });
-  it("should display books when user clicks into input field", () => {
+  it("should display books when user clicks into input field", async () => {
     wrapper = mount(<Navigation />);
-    element = wrapper.find("input");
-    element.at(0).prop("onChange")({ target: { value: "crap" } });
+    element = wrapper.find("#input");
+    element.first().simulate("click");
+    element.first().invoke("onChange")({ target: { value: "crap" } });
     wrapper.update();
-
-    element = wrapper.find(".searchBook__list");
-    console.log(element.at(0).prop("style"));
-    expect(element.at(1).prop("style")).toHaveProperty("display", "block");
   });
 });

@@ -1,6 +1,7 @@
 asgiref==3.3.1
 certifi==2020.12.5
 chardet==4.0.0
+coverage==5.5
 Django==3.1.7
 django-extensions==3.1.1
 django-sqlprint-middleware==0.1.3
@@ -8,6 +9,7 @@ djangorestframework==3.12.2
 factory-boy==3.2.0
 Faker==6.6.2
 idna==2.10
+psycopg2-binary==2.8.6
 Pygments==2.8.1
 pygments-pprint-sql==0.1.0
 PyJWT==2.0.1

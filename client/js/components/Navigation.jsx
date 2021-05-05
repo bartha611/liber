@@ -26,6 +26,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const inputClick = (e) => {
+      console.log("hello there");
       const element = document.querySelector(".searchBook__list");
       if (!e.target.className) {
         element.style.display = "none";
