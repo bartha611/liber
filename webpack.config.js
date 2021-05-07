@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: "./client/js/index.jsx",
-  watch: true,
+  watch: false,
   output: {
     path: `${__dirname}/frontend/static/frontend/dist`,
     filename: "bundle.js",
