@@ -2,10 +2,7 @@ FROM python:3.7
 RUN mkdir /home/Liber
 WORKDIR /home/Liber
 
-RUN apk update && apk add python make g++
-
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install -y nodejs
 
 RUN npm install -g npm
@@ -18,5 +15,5 @@ RUN npm install
 RUN npm run build:prod
 
 EXPOSE 8000
-CMD ["gunicorn", "liber.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "Liber.wsgi:application", "--bind", "0.0.0.0:8000"]
 
