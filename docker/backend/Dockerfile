@@ -2,6 +2,8 @@ FROM python:3.7
 RUN mkdir /home/Liber
 WORKDIR /home/Liber
 
+RUN apk update && apk add python make g++
+
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 RUN apt-get install -y nodejs
