@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import sys
 import mimetypes
 from pathlib import Path
 from dotenv import load_dotenv
@@ -30,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost', 'liber611.com', 'www.liber611.com']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "liber611.com", "www.liber611.com"]
 
 AUTH_USER_MODEL = "authentication.User"
 
@@ -105,9 +106,12 @@ DATABASES = {
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
-        "PORT": 5432,
+        "PORT": "",
     }
 }
+
+if "test" in sys.argv or "test_coverage" in sys.argv:
+    DATABASES["default"]["ENGINE"] = "django.db.backends.sqlite3"
 
 
 # Password validation
