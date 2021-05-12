@@ -13,7 +13,7 @@ COPY . .
 RUN npm install
 RUN npm run build:prod
 
-RUN ./manage.py collecstatic --no-input
+RUN python3 manage.py collectstatic --no-input
 
 EXPOSE 8000
 CMD ["gunicorn", "Liber.wsgi:application", "--bind", "0.0.0.0:8000"]
