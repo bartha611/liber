@@ -16,9 +16,10 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Create env file
+      - name: Create env file and sqlite file
         run: |
           touch .env
+          touch dev.sqlite3
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
       - name: Install dependencies
         run: |
