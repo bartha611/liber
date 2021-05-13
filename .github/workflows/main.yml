@@ -19,7 +19,6 @@ jobs:
       - name: Create env file and sqlite file
         run: |
           touch .env
-          touch dev.sqlite3
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
       - name: Install dependencies
         run: |
